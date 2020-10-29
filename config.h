@@ -20,7 +20,7 @@ static const char col_orange[]        = "#ffc857";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_orange },
+	[SchemeSel]  = { col_gray1, col_orange,  col_orange },
 };
 
 /* tagging */
@@ -63,7 +63,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 /* static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL }; */
-static const char *dmenucmd[] = { "rofi", "-show", "drun", "-show-icons", "--opacity", "85" };
+static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", "--opacity", "85" };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
 
 static const char *upvol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%",     NULL };
@@ -73,7 +73,7 @@ static const char *mutevol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "
 #include <X11/XF86keysym.h>
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 
   { 0,                            XF86XK_AudioLowerVolume, 	spawn, 		{.v = downvol } },
@@ -110,6 +110,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_o,                      6)
 	TAGKEYS(                        XK_p,                      7)
 	{ MODKEY|ShiftMask,             XK_c,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} },
 };
 
 /* button definitions */
