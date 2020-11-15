@@ -32,12 +32,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Volume Control",     NULL,   NULL,       0,     1,     -1, -1},
-	{ "Gimp",               NULL,   NULL,       0,     1,     0,    0,    -1 },
-	{ "Firefox",            NULL,   NULL,       1 << 8,0,     0,    -1,   -1 },
-	{ "xfce4-terminal",     NULL,   NULL,       0,     0,     1,    0,    -1 },
-	{ NULL,                 NULL,   "Event Tester", 0, 0,     0,    1,    -1 }, /* xev */
+	/* class              instance  title               tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Volume Control",     NULL,   "Volume Control",       0,         1,         0,        -1,        -1 },
+	{ "Gimp",               NULL,   NULL,                   0,         1,         0,         0,        -1 },
+	{ "Firefox",            NULL,   NULL,                   1 << 8,    0,         0,         -1,       -1 },
+	{ "Xfce4-terminal",     NULL,   NULL,                   0,         0,         1,         0,        -1 },
+	{ NULL,                 NULL,   "Event Tester",         0,         0,         0,         1,        -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -68,6 +68,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 /* static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL }; */
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", "--opacity", "85" };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
+static const char *passmenu[] = { "passmenu" }
 
 static const char *upvol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%",     NULL };
 static const char *downvol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%",     NULL };
@@ -78,6 +79,7 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_y,      spawn,          {.v = passmenu } },
 
   { 0,                            XF86XK_AudioLowerVolume, 	spawn, 		{.v = downvol } },
 	{ 0,                       	    XF86XK_AudioMute, 	    	spawn, 		{.v = mutevol } },
