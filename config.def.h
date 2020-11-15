@@ -1,9 +1,8 @@
 /* See LICENSE file for copyright and license details. */
+
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 3;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
@@ -17,7 +16,7 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-static const char col_orange[]      = "#ffc857";
+static const char col_orange[]        = "#ffc857";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -32,12 +31,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class              instance  title               tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Pavucontrol",        NULL,   NULL,                   0,         1,         0,        -1,        -1 },
-	{ "Gimp",               NULL,   NULL,                   0,         1,         0,         0,        -1 },
-	{ "Firefox",            NULL,   NULL,                   1 << 8,    0,         0,         -1,       -1 },
-	{ "Xfce4-terminal",     NULL,   NULL,                   0,         0,         1,         0,        -1 },
-	{ NULL,                 NULL,   "Event Tester",         0,         0,         0,         1,        -1 }, /* xev */
+	/* class      instance    title       tags mask     isfloating   monitor */
+	/* { "Gimp",     NULL,       NULL,       0,            1,           -1 }, */
+	/* { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
+	{ "xfce4-terminal",  NULL,   NULL,       0,            0,           -1 },
+	{ "pavucontrol",     NULL,   NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -68,7 +66,6 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 /* static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL }; */
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", "--opacity", "85" };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
-static const char *passmenu[] = { "passmenu" };
 
 static const char *upvol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%",     NULL };
 static const char *downvol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%",     NULL };
@@ -79,7 +76,6 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_y,      spawn,          {.v = passmenu } },
 
   { 0,                            XF86XK_AudioLowerVolume, 	spawn, 		{.v = downvol } },
 	{ 0,                       	    XF86XK_AudioMute, 	    	spawn, 		{.v = mutevol } },
@@ -88,8 +84,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_j,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      incnmaster,     {.i = -1 } },
+	/* { MODKEY|ShiftMask,             XK_j,      incnmaster,     {.i = +1 } }, */
+	/* { MODKEY|ShiftMask,             XK_k,      incnmaster,     {.i = -1 } }, */
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_m,      zoom,           {0} },
@@ -106,9 +102,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
-	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	TAGKEYS(                        XK_a,                      0)
 	TAGKEYS(                        XK_s,                      1)
 	TAGKEYS(                        XK_d,                      2)
