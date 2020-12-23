@@ -68,7 +68,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 /* static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL }; */
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", "--opacity", "85" };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
-static const char *passmenu[] = { "passmenu" };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 
 static const char *upvol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%",     NULL };
 static const char *downvol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%",     NULL };
@@ -79,7 +79,7 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_y,      spawn,          {.v = passmenu } },
+	{ MODKEY,                       XK_y,      spawn,          {.v = dmenucmd } },
 
   { 0,                            XF86XK_AudioLowerVolume, 	spawn, 		{.v = downvol } },
 	{ 0,                       	    XF86XK_AudioMute, 	    	spawn, 		{.v = mutevol } },
